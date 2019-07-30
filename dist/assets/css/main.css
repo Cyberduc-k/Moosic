@@ -1,0 +1,32 @@
+html, body {
+    margin: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background: transparent;
+    user-select: none;
+}
+
+body {
+    padding: 10px;
+    box-sizing: border-box;
+    
+    --color-r: 255;
+    --color-g: 255;
+    --color-b: 255;
+    --color: rgb(var(--color-r), var(--color-g), var(--color-b));
+}
+
+#app {
+    font-family: "Poppins";
+}
+
+.icon {
+    width: 1.875rem;
+    height: 1.875rem;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.25rem;
+}

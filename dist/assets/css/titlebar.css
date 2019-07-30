@@ -1,0 +1,174 @@
+#app.playing #titlebar {
+    border-bottom-left-radius: 0.6rem;
+    border-bottom-right-radius: 0.6rem;
+}
+
+#app:not(.playing) #titlebar:after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 15px;
+    background: var(--color);
+    position: absolute;
+    left: 0;
+    top: 100%;
+}
+
+#titlebar {
+    box-sizing: border-box;
+    height: 30px;
+    width: 100%;
+    background: var(--color);
+    position: relative;
+    z-index: 1;
+    border-top-left-radius: 0.6rem;
+    border-top-right-radius: 0.6rem;
+    transition: border-bottom-left-radius 0.3s, border-bottom-right-radius 0.3s;
+    -webkit-app-region: drag;
+    
+    box-shadow: 0 0 20px rgba(26, 26, 26, 0.2);
+}
+
+#titlebar .title {
+    float: left;
+    height: 27px;
+    margin-top: 3px;
+    margin-left: 4px;
+}
+
+#titlebar .buttons {
+    float: right;
+}
+
+#titlebar .buttons .close,
+#titlebar .buttons .minimize {
+    display: inline-block;
+    vertical-align: top;
+    width: 16px;
+    height: 16px;
+    margin: 7px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    transition: background-color 0.3s ease;
+    
+    -webkit-app-region: no-drag;
+}
+
+#titlebar .buttons :first-child {
+    margin-left: 0;
+    margin-right: 4px;
+}
+
+#titlebar .buttons :last-child {
+    margin-left: 0;
+}
+
+#titlebar .buttons :hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+#titlebar .controls {
+    display: inline-block;
+    margin-left: 11rem;
+}
+
+#titlebar .controls .btn:not(:first-child) {
+    margin-left: -3px;
+}
+
+#titlebar .controls .btn {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin: 5px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    position: relative;
+    z-index: 3;
+    
+    -webkit-app-region: no-drag;
+}
+
+#titlebar .controls .btn i {
+    color: white;
+    font-size: 0.7rem;
+    width: 20px;
+    position: relative;
+    top: -3px;
+    z-index: 4;
+    text-align: center;
+    line-height: 20px;
+    
+    -webkit-app-region: no-drag;
+}
+
+#titlebar .controls .repeat i {
+    animation: rotate 5s linear infinite paused;
+}
+
+#titlebar .controls .repeat i.looping {
+    animation-play-state: running;
+}
+
+#titlebar .controls .volume:hover .wrapper,
+#titlebar .controls .volume .wrapper:hover {
+    display: block;
+}
+
+#titlebar .controls .volume:hover i {
+	filter: invert(100%);
+}
+
+#titlebar .controls .volume .wrapper {
+    display: none;
+    position: absolute;
+    z-index: 3;
+    top: 0;
+    left: 0;
+    height: 88px;
+    width: 20px;
+    border-radius: 10px;
+    background: white;
+    
+    -webkit-app-region: no-drag;
+}
+
+#titlebar .controls .volume input {
+    -webkit-appearance: none;
+    outline: none;
+    background: transparent;
+    position: relative;
+    width: 60px;
+    height: 16px;
+    top: 42px;
+    left: -22px;
+    transform: rotate(90deg);
+    
+    -webkit-app-region: no-drag;
+}
+
+#titlebar .controls .volume input::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 4px;
+    background: black;
+    border-radius: 2px;
+}
+
+#titlebar .controls .volume input::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 10px;
+    height: 10px;
+    background: black;
+    border-radius: 5px;
+    position: relative;
+    bottom: 3px;
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

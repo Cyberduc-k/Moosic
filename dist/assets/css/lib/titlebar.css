@@ -1,0 +1,24 @@
+#titlebar {
+    border-radius: 0 !important;
+}
+
+#titlebar .buttons .close,
+#titlebar .buttons .minimize {
+	background: rgba(0, 0, 0, 0.2);
+}
+
+#titlebar .buttons :hover {
+	background: rgba(0, 0, 0, 0.5);
+}
+
+#titlebar .controls {
+	margin-left: 0;
+}
+
+#titlebar .controls .btn {
+	background: rgba(0, 0, 0, 0.2);
+}
+
+#titlebar:after {
+	display: none !important;
+}

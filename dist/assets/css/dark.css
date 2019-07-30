@@ -1,0 +1,61 @@
+body.dark #app.playing #controls #disc {
+    box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.7);
+}
+
+body.dark #app.playing #controls #disc:after {
+    box-shadow: inset 0 0.5rem 1.5rem rgba(0, 0, 0, 0.7);
+}
+
+body.dark #player .info .artist {
+    color: white;
+}
+
+body.dark #player .info .title {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+body.dark #player .info .progress {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+body.dark #player .info .indicator {
+    background: white;
+}
+
+body.dark #titlebar .buttons * {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+body.dark #titlebar .buttons *:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+body.dark #controls button {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+body.dark #controls button .icon .icon-pause:before,
+body.dark #controls button .icon .icon-pause:after {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+body.dark #controls button:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+body.dark #titlebar .controls .btn {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+body.dark #titlebar .controls .volume input::-webkit-slider-runnable-track,
+body.dark #titlebar .controls .volume input::-webkit-slider-thumb {
+    background: black;
+}
+
+body.dark #titlebar .controls .volume:hover i {
+    filter: invert(100%);
+}
+
+body.dark #titlebar .controls .volume .wrapper {
+    background: white;
+}

@@ -1,0 +1,17 @@
+.track {
+	padding: 1px 3px;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+	font-size: 12px;
+	display: grid;
+	grid-template-columns: 3fr 2fr 3fr 30px;
+	grid-column-gap: 10px;
+	cursor: pointer;
+}
+
+.track:hover {
+	background: rgba(0, 0, 0, 0.1);
+}
+
+.track.current {
+	background: #9694FF;
+}

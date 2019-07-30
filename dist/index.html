@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Moosic</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/fontawesome.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/brands.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:400,600">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/solid.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/titlebar.css">
+    <link rel="stylesheet" href="assets/css/player.css">
+    <link rel="stylesheet" href="assets/css/controls.css">
+    <link rel="stylesheet" href="assets/css/dark.css">
+</head>
+
+<body>
+    <div id="app"></div>
+
+    <template id="app-template">
+        <div id="app" :class="{ playing: $store.state.playing }">
+            <titlebar></titlebar>
+            <player></player>
+            <controls></controls>
+        </div>
+    </template>
+
+    <template id="titlebar-template">
+        <div id="titlebar">
+            <div class="controls">
+                <div class="btn volume" @click.self="muted = !muted">
+                    <i :class="`fas ${volume_icon}`" @click="muted = !muted"></i>
+                    <div class="wrapper">
+                        <input type="range" min="0" max="100" v-model="volume">
+                    </div>
+                </div>
+                <div class="btn repeat" @click="repeat = !repeat" title="Repeat">
+                    <i :class="{ fas: true, 'fa-redo-alt': true, looping: repeat }"></i>
+                </div>
+                <div class="btn shuffle" @click="$store.state.shuffle = !$store.state.repeat" title="Shuffle">
+                    <i :class="{ fas: true, 'fa-random': $store.state.shuffle, 'fa-exchange-alt': !$store.state.shuffle }"></i>
+                </div>
+                <div class="btn library" @click="openLib" title="Open Library">
+                    <i class="fas fa-list"></i>
+                </div>
+            </div>
+            <div class="buttons">
+                <div class="minimize" @click="minimize"></div>
+                <div class="close" @click="close"></div>
+            </div>
+        </div>
+    </template>
+
+    <template id="player-template">
+        <div id="player">
+            <div class="info">
+                <div class="artist">{{ artist }}</div>
+                <div class="title">{{ title }}</div>
+                <div class="progress-wrapper" @mousemove="move" @click="setTime">
+                    <div class="progress" ref="prog">
+                        <div class="indicator" :style="`--duration: ${duration}s`"></div>
+                    </div>
+                </div>
+            </div>
+            <div id="visual-blur"></div>
+            <svg id="visual">
+                <defs>
+                    <linearGradient id="fade">
+                        <stop offset="5%" stop-color="rgba(255, 255, 255, 0)"/>
+                        <stop offset="10%" stop-color="rgb(255, 255, 255)"/>
+                        <stop offset="90%" stop-color="rgb(255, 255, 255)"/>
+                        <stop offset="95%" stop-color="rgba(255, 255, 255, 0)"/>
+                    </linearGradient>
+                </defs>
+                <path class="tone" stroke="url(#fade)" stroke-width="3" fill="transparent" :d="tone"/>
+            </svg>
+        </div>
+    </template>
+
+    <template id="controls-template">
+        <div id="controls">
+            <div id="disc" :style="`--image: url(${image})`"></div>
+            <div class="controls">
+                <button class="prev" @click="prev">
+                    <div class="icon">
+                        <i class="fas fa-backward"></i>
+                    </div>
+                </button>
+                <button class="play" @click="togglePlay">
+                    <div class="icon">
+                        <i class="fas fa-play icon-play"></i>
+                        <div class="icon-pause"></div>
+                    </div>
+                </button>
+                <button class="next" @click="next">
+                    <div class="icon">
+                        <i class="fas fa-forward"></i>
+                    </div>
+                </button>
+            </div>
+        </div>
+    </template>
+
+    <script>
+        require('./electron/renderer.js');    
+    </script>
+</body>
+
+</html>

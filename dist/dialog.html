@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie-edge">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:400,600">
+		<link rel="stylesheet" href="assets/css/titlebar.css">
+		<link rel="stylesheet" href="assets/css/lib/main.css">
+		<link rel="stylesheet" href="assets/css/lib/titlebar.css">
+	</head>
+
+	<body>
+		<div id="app"></div>
+
+		<template id="app-template">
+			<div id="app">
+				<titlebar></titlebar>
+				<input v-model="globals.text">
+				<div class="buttons">
+					<button @click="done">Done</button>
+					<button @click="cancel">Cancel</button>
+				</div>
+			</div>
+        </template>
+        
+        <template id="titlebar-template">
+            <div id="titlebar">
+                <div class="title">{{ globals.title }}</div>
+                <div class="buttons">
+                    <div class="minimize" @click="minimize"></div>
+                    <div class="close" @click="close"></div>
+                </div>
+            </div>
+        </template>
+
+		<script>
+			require("./electron/renderer.dialog.js");
+		</script>
+		<script>
+			function addPlaylist()
+			{
+                require("./ui/dialog/globals.js").title = "Add Playlist";
+            }
+            
+			function renamePlaylist(name)
+			{
+                require("./ui/dialog/globals.js").title = "Rename Playlist";
+                require("./ui/dialog/globals.js").text = name;
+			}
+		</script>
+	</body>
+</html>

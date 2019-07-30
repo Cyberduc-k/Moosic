@@ -1,0 +1,169 @@
+#app.playing #controls #disc:before {
+    animation-play-state: running;
+}
+
+#app.playing #controls #disc {
+    transform: scale(1);
+    box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.3);
+}
+
+#app.playing #controls #disc:after {
+    box-shadow: inset 0 0.5rem 1.5rem rgba(0, 0, 0, 0.3);
+}
+
+#app.playing #controls {
+    border-top-left-radius: 0.6rem;
+    border-top-right-radius: 0.6rem;
+}
+
+#app.playing #controls .controls button .icon .icon-play {
+    transform: scale(0.5);
+    opacity: 0;
+}
+
+#app.playing #controls .controls button .icon .icon-pause:before,
+#app.playing #controls .controls button .icon .icon-pause:after {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+#controls {
+    background: var(--color);
+    width: 100%;
+    border-bottom-left-radius: 0.6rem;
+    border-bottom-right-radius: 0.6rem;
+    padding: 0.5rem;
+    box-sizing: border-box;
+    position: relative;
+    transition: border-top-left-radius 0.3s, border-top-right-radius 0.3s;
+    
+    box-shadow: 0 0 20px rgba(26, 26, 26, 0.2);
+}
+
+#controls:before,
+#controls:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+#controls #disc {
+    width: 8.125rem;
+    height: 8.125rem;
+    border-radius: 50%;
+    position: absolute;
+    z-index: 1;
+    bottom: 1.25rem;
+    left: 1.6rem;
+    transform: scale(0.65);
+    transform-origin: center bottom;
+    transition: all 0.7s ease;
+}
+
+#controls #disc:before {
+    content: '';
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3) var(--image) no-repeat center center;
+    background-size: 100%;
+    position: absolute;
+    animation: disc-rotate 10s linear forwards infinite paused;
+}
+
+#controls #disc:after {
+    content: '';
+    display: block;
+    width: 23.5%;
+    height: 23.5%;
+    border-radius: 50%;
+    background: var(--color);
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    top: 0;
+    right: 0;
+    margin: auto;
+    z-index: 1;
+}
+
+#controls .controls {
+    float: right;
+    display: flex;
+    position: relative;
+    z-index: 1;
+}
+
+#controls .controls button {
+    position: relative;
+    padding: 1.4rem;
+    margin: 0.1625rem;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    background: none;
+    transition: all 0.5s ease;
+    border-radius: 0.6rem;
+    display: flex;
+    color: rgba(255, 255, 255, 0.2);
+}
+
+#controls .controls button:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: var(--color);
+}
+
+#controls .controls button .icon .icon-play {
+    font-size: 1.8rem;
+    position: relative;
+    left: .1875rem;
+    transform: 0.5s ease, opacity 0.5s ease;
+}
+
+#controls .controls button .icon .icon-pause {
+    font-size: 1.8rem;
+    width: 100%;
+    height: 100%;
+}
+
+#controls .controls button .icon .icon-pause:before {
+    content: '';
+    left: 0;
+    transform: translateX(-50%);
+    display: block;
+    width: .6875rem;
+    height: 1.875rem;
+    border-radius: .1rem;
+    background: rgba(255, 255, 255, 0.2);
+    position: absolute;
+    transition: all 0.5s ease;
+    opacity: 0;
+}
+
+#controls .controls button .icon .icon-pause:after {
+    content: '';
+    right: 0;
+    transform: translateX(50%);
+    display: block;
+    width: .6875rem;
+    height: 1.875rem;
+    border-radius: .1rem;
+    background: rgba(255, 255, 255, 0.2);
+    position: absolute;
+    transition: all 0.5s ease;
+    opacity: 0;
+}
+
+#controls .controls button:hover .icon .icon-pause:before,
+#controls .controls button:hover .icon .icon-pause:after {
+    background: var(--color);
+}
+
+@keyframes disc-rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

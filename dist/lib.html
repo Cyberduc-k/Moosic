@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Moosic Library</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/fontawesome.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/brands.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:400,600">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/solid.css">
+    <link rel="stylesheet" href="assets/css/lib/main.css">
+    <link rel="stylesheet" href="assets/css/titlebar.css">
+    <link rel="stylesheet" href="assets/css/lib/titlebar.css">
+	<link rel="stylesheet" href="assets/css/lib/playlists.css">
+	<link rel="stylesheet" href="assets/css/lib/playlist.css">
+	<link rel="stylesheet" href="assets/css/lib/track.css">
+</head>
+
+<body>
+    <div id="app"></div>
+
+    <template id="app-template">
+        <div id="app">
+            <titlebar></titlebar>
+            <playlists v-if="current === -1"></playlists>
+            <playlist v-else></playlist>
+        </div>
+    </template>
+
+    <template id="titlebar-template">
+        <div id="titlebar">
+			<div class="controls" v-if="$store.state.current === -1">
+				<div class="btn add-playlist" title="Add Playlist" @click="addPlaylist"></div>
+			</div>
+			<div class="controls" v-else>
+				<div class="btn add-files" title="Add File(s)" @click="addFiles"></div>
+				<div class="btn add-folders" title="Add Folder(s)" @click="addFolder"></div>
+			</div>
+            <div class="buttons">
+                <div class="minimize" @click="minimize"></div>
+                <div class="close" @click="close"></div>
+            </div>
+        </div>
+    </template>
+
+    <template id="playlists-template">
+        <div id="playlists">
+            <div
+                :class="{ playlist: true, default: playlist.name === 'default' }"
+                v-for="(playlist, i) in playlists"
+                :key="i"
+                @click="$store.state.current = i"
+                @contextmenu="contextmenu(i, $event)"
+            >{{ playlist.name }}</div>
+        </div>
+    </template>
+
+    <template id="playlist-template">
+        <div id="playlist">
+			<div
+				:class="{ name: true, default: pl.name === 'default' }"
+				title="Click to go back"
+				@click="$store.state.current = -1"
+			><span>&lt;</span> {{ pl.name }}</div>
+			<div class="tracks">
+				<song v-for="(track, i) in pl.tracks" :track="track" :index="i" :key="i" @track-click="playTrack(i)"></song>
+			</div>
+        </div>
+    </template>
+
+    <template id="track-template">
+		<div :class="{ track: true, current: index === $store.state.currentTrack }" @click="$emit('track-click')">
+            <div class="title">{{ track.title }}</div>
+            <div class="artist">{{ track.artist }}</div>
+            <div class="album">{{ track.album }}</div>
+            <div class="duration">{{ mins }}:{{ secs }}</div>
+        </div>
+    </template>
+
+    <script>
+        require('./electron/renderer.lib.js');
+    </script>
+</body>
+
+</html>

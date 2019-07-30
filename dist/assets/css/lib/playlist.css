@@ -1,0 +1,40 @@
+#playlist {
+	width: 100%;
+	height: calc(100% - 30px);
+}
+
+#playlist .name.default {
+	font-style: italic;
+}
+
+#playlist .name span {
+	font-style: normal;
+}
+
+#playlist .name {
+	padding: 2px 5px;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+	text-transform: capitalize;
+	cursor: pointer;
+	background: rgba(0, 0, 0, 0.1);
+}
+
+#playlist .tracks {
+	height: calc(100% - 30px);
+	overflow-y: scroll;
+}
+
+#playlist .tracks::-webkit-scrollbar {
+	width: 12px;
+	background: transparent;
+}
+
+#playlist .tracks::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+#playlist .tracks::-webkit-scrollbar-thumb {
+	width: 12px;
+	min-height: 12px;
+	background: rgba(0, 0, 0, 0.1);
+}

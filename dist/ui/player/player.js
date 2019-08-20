@@ -75,12 +75,14 @@ exports.default = component_1.default({
             const data = new Uint8Array(analyzer.frequencyBinCount);
             analyzer.getByteTimeDomainData(data);
             const step = Math.ceil(data.length / 50);
+            const volume = 1 / this.$store.state.audio.volume;
             let lastX = 0;
             let lastY = amp;
             let first = true;
             for (let i = 0; i < data.length; i += step) {
                 const x = i * (width / data.length);
-                const y = (data[i] / 128) * amp;
+                let y = data[i] / 128;
+                y = ((y - 1) * volume + 1) * (amp / 2) + 20;
                 const xc = (lastX + x) / 2;
                 const yc = (lastY + y) / 2;
                 if (first) {

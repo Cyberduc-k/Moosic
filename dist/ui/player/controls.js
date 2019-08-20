@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const component_1 = __importDefault(require("../component"));
 const loader_1 = require("../../loader");
 const electron_1 = require("electron");
+const color_1 = __importDefault(require("color"));
 exports.default = component_1.default({
     template: '#controls-template',
     // @ts-ignore
@@ -121,6 +122,11 @@ function resizedataURL(datas, encoding, wantedWidth, wantedHeight) {
             rgb.r += val;
             rgb.g += val;
             rgb.b += val;
+            let color = color_1.default(rgb);
+            color = color.saturationl(50);
+            rgb.r = color.red();
+            rgb.g = color.green();
+            rgb.b = color.blue();
             resolve([dataURI, rgb]);
         };
         img.src = datas;

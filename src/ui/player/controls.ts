@@ -1,6 +1,7 @@
 import Component from "../component";
 import { loadImage } from "../../loader";
 import { ipcRenderer } from "electron";
+import Color from "color";
 
 export default Component({
     template: '#controls-template',
@@ -157,6 +158,13 @@ function resizedataURL(
             rgb.r += val;
             rgb.g += val;
             rgb.b += val;
+            
+            let color = Color(rgb);
+            
+            color = color.saturationl(50);
+            rgb.r = color.red();
+            rgb.g = color.green();
+            rgb.b = color.blue();
 
             resolve([dataURI, rgb]);
         };

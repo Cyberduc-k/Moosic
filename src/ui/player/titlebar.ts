@@ -17,6 +17,7 @@ export default Component({
             volume,
             muted,
             repeat,
+            alwaysOnTop: false
         };
     },
     computed: {
@@ -56,24 +57,39 @@ export default Component({
         openLib()
         {
             ipcRenderer.send('openLib');
+        },
+        toggleAlwaysOnTop()
+        {
+            const win = remote.getCurrentWindow();
+            
+            if (this.alwaysOnTop) {
+                win.setAlwaysOnTop(false);
+                this.alwaysOnTop = false;
+            } else {
+                win.setAlwaysOnTop(true);
+                this.alwaysOnTop = true;
+            }
         }
     },
     created()
     {
-        remote.globalShortcut.register("VolumeUp", () => {
+        remote.globalShortcut.register("VolumeUp", () =>
+        {
             if (this.volume > 1)
                 this.volume -= 2;
         });
-        
-        remote.globalShortcut.register("VolumeDown", () => {
+
+        remote.globalShortcut.register("VolumeDown", () =>
+        {
             if (this.volume < 99)
                 this.volume += 2;
         });
-        
-        remote.globalShortcut.register("VolumeMute", () => {
+
+        remote.globalShortcut.register("VolumeMute", () =>
+        {
             this.muted = !this.muted;
         });
-        
+
         window.addEventListener('beforeunload', () =>
         {
             localStorage.setItem('volume', `${this.volume}`);

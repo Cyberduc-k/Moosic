@@ -18,6 +18,7 @@ exports.default = component_1.default({
             volume,
             muted,
             repeat,
+            alwaysOnTop: false
         };
     },
     computed: {
@@ -49,6 +50,17 @@ exports.default = component_1.default({
         },
         openLib() {
             electron_1.ipcRenderer.send('openLib');
+        },
+        toggleAlwaysOnTop() {
+            const win = electron_1.remote.getCurrentWindow();
+            if (this.alwaysOnTop) {
+                win.setAlwaysOnTop(false);
+                this.alwaysOnTop = false;
+            }
+            else {
+                win.setAlwaysOnTop(true);
+                this.alwaysOnTop = true;
+            }
         }
     },
     created() {

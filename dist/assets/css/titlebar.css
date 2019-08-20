@@ -26,7 +26,7 @@
     transition: border-bottom-left-radius 0.3s, border-bottom-right-radius 0.3s;
     -webkit-app-region: drag;
     
-    box-shadow: 0 0 20px rgba(26, 26, 26, 0.2);
+    box-shadow: 0 0 20px rgba(26, 26, 26, 0.3);
 }
 
 #titlebar .title {
@@ -85,6 +85,7 @@
     background: rgba(255, 255, 255, 0.2);
     position: relative;
     z-index: 3;
+    vertical-align: top;
     
     -webkit-app-region: no-drag;
 }
@@ -94,7 +95,7 @@
     font-size: 0.7rem;
     width: 20px;
     position: relative;
-    top: -3px;
+    top: -3.5px;
     z-index: 4;
     text-align: center;
     line-height: 20px;

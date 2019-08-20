@@ -26,6 +26,7 @@ export default new Vuex.Store({
             if (state.shuffle) {
                 state.current = Math.round(Math.random() * (state.queue.length - 1));
             }
+            
             state.audio.src = state.queue[state.current];
             state.audio.play();
             load(state.queue[state.current]).then(track => state.track = track);

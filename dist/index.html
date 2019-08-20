@@ -8,8 +8,9 @@
     <title>Moosic</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/fontawesome.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/brands.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:400,600">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/solid.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/regular.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:400,600">
     <link rel="stylesheet" href="assets/css/main.css">
     <link rel="stylesheet" href="assets/css/titlebar.css">
     <link rel="stylesheet" href="assets/css/player.css">
@@ -40,11 +41,14 @@
                 <div class="btn repeat" @click="repeat = !repeat" title="Repeat">
                     <i :class="{ fas: true, 'fa-redo-alt': true, looping: repeat }"></i>
                 </div>
-                <div class="btn shuffle" @click="$store.state.shuffle = !$store.state.repeat" title="Shuffle">
+                <div class="btn shuffle" @click="$store.state.shuffle = !$store.state.shuffle" title="Shuffle">
                     <i :class="{ fas: true, 'fa-random': $store.state.shuffle, 'fa-exchange-alt': !$store.state.shuffle }"></i>
                 </div>
                 <div class="btn library" @click="openLib" title="Open Library">
                     <i class="fas fa-list"></i>
+                </div>
+                <div class="btn always-on-top" @click="toggleAlwaysOnTop" title="Toggle Always On Top">
+                    <i :class="{ fas: alwaysOnTop, far: !alwaysOnTop,  'fa-paper-plane': true }"></i>
                 </div>
             </div>
             <div class="buttons">
@@ -56,16 +60,6 @@
 
     <template id="player-template">
         <div id="player">
-            <div class="info">
-                <div class="artist">{{ artist }}</div>
-                <div class="title">{{ title }}</div>
-                <div class="progress-wrapper" @mousemove="move" @click="setTime">
-                    <div class="progress" ref="prog">
-                        <div class="indicator" :style="`--duration: ${duration}s`"></div>
-                    </div>
-                </div>
-            </div>
-            <div id="visual-blur"></div>
             <svg id="visual">
                 <defs>
                     <linearGradient id="fade">
@@ -77,6 +71,16 @@
                 </defs>
                 <path class="tone" stroke="url(#fade)" stroke-width="3" fill="transparent" :d="tone"/>
             </svg>
+            <!-- <div id="visual-blur"></div> -->
+            <div class="info">
+                <div class="artist">{{ artist }}</div>
+                <div class="title">{{ title }}</div>
+                <div class="progress-wrapper" @mousemove="move" @click="setTime">
+                    <div class="progress" ref="prog">
+                        <div class="indicator" :style="`--duration: ${duration}s`"></div>
+                    </div>
+                </div>
+            </div>
         </div>
     </template>
 

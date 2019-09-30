@@ -73,13 +73,14 @@ electron_1.ipcMain.on('dialogResult', (_, res) => win2.webContents.send('dialogR
 function openLib(hidden = false) {
     if (win2 !== null) {
         win2.focus();
-        // if (!hidden) win2.show();
+        if (!hidden)
+            win2.show();
     }
     else {
         win2 = new electron_1.BrowserWindow({
             width: 400,
             height: 600,
-            // show: !hidden,
+            show: !hidden,
             frame: false,
             webPreferences: {
                 nodeIntegration: true

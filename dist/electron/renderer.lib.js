@@ -1,9 +1,10 @@
 "use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
         function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
@@ -22,8 +23,10 @@ const vue_1 = __importDefault(require("vue"));
 const vuex_1 = __importDefault(require("vuex"));
 // @ts-ignore
 const vue_async_computed_1 = __importDefault(require("vue-async-computed"));
+const vue_draggable_1 = __importDefault(require("vue-draggable"));
 vue_1.default.use(vuex_1.default);
 vue_1.default.use(vue_async_computed_1.default, { errorHandler: false });
+vue_1.default.use(vue_draggable_1.default);
 const store_lib_1 = __importDefault(require("../store.lib"));
 const lib_1 = require("../ui/lib");
 const electron_1 = require("electron");
@@ -79,7 +82,6 @@ new vue_1.default({
                 electron_1.ipcRenderer.send('playTrack', 0);
                 this.$store.state.qurrentTrack = 0;
             }
-            electron_1.remote.getCurrentWindow().close();
         }));
         window.addEventListener('beforeunload', () => {
             localStorage.setItem('playlists', JSON.stringify(this.$store.state.playlists));

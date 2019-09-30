@@ -13,7 +13,7 @@ export default Component({
         },
         close()
         {
-			remote.getCurrentWindow().close();
+			remote.getCurrentWindow().hide();
         },
 		addPlaylist()
 		{
@@ -45,10 +45,15 @@ export default Component({
 				properties: ['multiSelections']
 			}, files => {
 				if (files !== undefined) {
-					const pl = this.$store.state.playlists[this.$store.state.current].tracks;
+                    const pl = this.$store.state.playlists[this.$store.state.current].tracks;
+                    let promises = [];
 
 					for (const file of files) {
-						load(file).then(track => {
+                        let p = load(file);
+                        
+                        promises.push(p);
+                        
+						p.then(track => {
 							pl.push({
 								title: track.title,
 								artist: track.artist,
@@ -57,7 +62,11 @@ export default Component({
 								file
 							});
 						});
-					}	
+                    }
+                    
+                    Promise.all(promises).then(() => {
+                        this.$store.commit("sort");
+                    });
 				}
 			});
 		},
@@ -69,12 +78,17 @@ export default Component({
 			}, folders => {
 				if (folders !== undefined) {
 					const pl = this.$store.state.playlists[this.$store.state.current].tracks;
-					const res: string[] = [];
+                    const res: string[] = [];
+                    let promises = []
 
 					exec(folders);
 
 					for (const file of res) {
-						load(file).then(track => {
+                        let p = load(file);
+                        
+                        promises.push(p);
+                        
+						p.then(track => {
 							pl.push({
 								title: track.title,
 								artist: track.artist,
@@ -83,7 +97,11 @@ export default Component({
 								file
 							});
 						});
-					}
+                    }
+                    
+                    Promise.all(promises).then(() => {
+                        this.$store.commit("sort");
+                    });
 
 					function exec(dirs: string[]) {
 						for (const dir of dirs) {

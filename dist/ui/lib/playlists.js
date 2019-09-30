@@ -8,6 +8,16 @@ const electron_1 = require("electron");
 const { Menu, MenuItem, getCurrentWindow } = electron_1.remote;
 exports.default = component_1.default({
     template: '#playlists-template',
+    data() {
+        // const instance = this;
+        return {
+            options: {
+                dropzoneSelector: '#playlists ul',
+                draggableSelector: '#playlists .playlist:not(.default)',
+                multipleDropzonesItemsDraggingEnabled: false,
+            }
+        };
+    },
     computed: {
         playlists() {
             return this.$store.state.playlists;
@@ -41,6 +51,17 @@ exports.default = component_1.default({
                 y: e.clientY,
                 window: getCurrentWindow()
             });
+        },
+        reordered(e) {
+            let pl = this.$store.state.playlists;
+            let i = 0;
+            for (i; i < pl.length; i++) {
+                if (pl[i].name == e.detail.items[0].innerText) {
+                    break;
+                }
+            }
+            let [elem] = pl.splice(i, 1);
+            pl.splice(e.detail.index + 1, 0, elem);
         }
     }
 });

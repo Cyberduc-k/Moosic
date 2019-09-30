@@ -26,7 +26,7 @@
     transition: border-bottom-left-radius 0.3s, border-bottom-right-radius 0.3s;
     -webkit-app-region: drag;
     
-    box-shadow: 0 0 20px rgba(26, 26, 26, 0.3);
+    box-shadow: 0 0 10px rgba(26, 26, 26, 0.3);
 }
 
 #titlebar .title {

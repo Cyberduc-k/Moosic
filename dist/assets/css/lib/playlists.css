@@ -3,6 +3,12 @@
 	height: 100%;
 }
 
+#playlists ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
 #playlists .playlist.default {
 	font-style: italic;
 }
@@ -16,4 +22,19 @@
 
 #playlists .playlist:hover {
 	background: rgba(0, 0, 0, 0.1);
+}
+
+#playlists .item-dropzone-area {
+    height: 28px;
+    width: calc(100% - 2px);
+    border: 1px solid black;
+    position: absolute;
+}
+
+#playlists .playlist:focus {
+    outline: none;
+}
+
+#playlists .playlist[aria-grabbed="true"] {
+    opacity: 0.5;
 }

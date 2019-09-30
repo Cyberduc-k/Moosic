@@ -161,7 +161,10 @@ function resizedataURL(
             
             let color = Color(rgb);
             
-            color = color.saturationl(50);
+            if (color.saturationl() < 50) {
+                color = color.saturationl(50);
+            }
+            
             rgb.r = color.red();
             rgb.g = color.green();
             rgb.b = color.blue();

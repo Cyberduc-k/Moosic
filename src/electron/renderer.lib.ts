@@ -2,9 +2,11 @@ import Vue from "vue";
 import Vuex from "vuex";
 // @ts-ignore
 import VueAsyncComputed from "vue-async-computed";
+import VueDraggable from "vue-draggable";
 
 Vue.use(Vuex);
 Vue.use(VueAsyncComputed, { errorHandler: false });
+Vue.use(VueDraggable);
 
 import store, { Playlist } from "../store.lib";
 import { titlebar, playlist, playlists } from "../ui/lib";
@@ -73,8 +75,6 @@ new Vue({
 
                 this.$store.state.qurrentTrack = 0;
             }
-            
-            remote.getCurrentWindow().close();
         });
 
 		window.addEventListener('beforeunload', () =>

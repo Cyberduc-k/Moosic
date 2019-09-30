@@ -32,9 +32,9 @@ exports.default = component_1.default({
             this.$el.classList.remove("display-progress");
         },
         move(e) {
-            this.$el.style.setProperty("--left", `${e.layerX}px`);
+            this.$el.style.setProperty("--left", `${e.offsetX}px`);
             const el = this.$refs.prog;
-            const p = (e.layerX / el.clientWidth);
+            const p = (e.offsetX / el.clientWidth);
             const t = Math.round(this.$store.state.track.duration * p);
             const hours = Math.floor(t / 3600), t2 = t % 3600;
             const mins = Math.floor(t2 / 60), secs = t2 % 60;
@@ -49,7 +49,7 @@ exports.default = component_1.default({
         },
         setTime(e) {
             const el = this.$refs.prog;
-            const p = (e.layerX / el.clientWidth);
+            const p = (e.offsetX / el.clientWidth);
             this.$store.state.audio.currentTime = this.$store.state.track.duration * p;
             this.$el.style.setProperty('--progress', `${p}`);
         },

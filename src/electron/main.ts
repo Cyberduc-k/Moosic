@@ -9,11 +9,31 @@ let win: BrowserWindow | null = null;
 let win2: BrowserWindow | null = null;
 let dialog: BrowserWindow | null = null;
 
+const locked = app.requestSingleInstanceLock();
+
+if (!locked) {
+    app.quit();
+} else {
+    app.on('second-instance', (_event, commandLine, _workingDirectory) => {
+        if (win !== null) {
+            if (win.isMinimized()) win.restore();
+            
+            openLib(true);
+            
+            win2!.webContents.send("openFile", commandLine[commandLine.length - 1]);
+            
+            win.focus();
+        }
+    })
+}
+
 ipcMain.on("getFile", (e: Event) => {
     let data = null;
     
     if (!isDev) {
         data = process.argv[1];
+    } else {
+        data = process.argv[2];
     }
     
     e.returnValue = data;
@@ -22,9 +42,7 @@ ipcMain.on("getFile", (e: Event) => {
 ipcMain.on("openFile", (_: any, file: string) => {
     openLib(true);
     
-    win2!.webContents.on("dom-ready", () => {
-        win2!.webContents.send("openFile", file);
-    });
+    win2!.webContents.send("openFile", file);
 });
 
 ipcMain.on('openLib', () =>
@@ -64,8 +82,11 @@ ipcMain.on('dialogResult', (_: any, res: string | null) => win2!.webContents.sen
 
 function openLib(hidden = false)
 {
-    if (win2 !== null)
+    if (win2 !== null) {
         win2.focus();
+        
+        if (!hidden) win2.show();
+    }
     else
     {
         win2 = new BrowserWindow({
@@ -158,7 +179,10 @@ function openDialog()
 	}
 }
 
-app.on('ready', openPlayer);
+app.on('ready', () => {
+    openPlayer();
+    openLib(true);
+});
 
 app.on('window-all-closed', () => { if (process.platform !== 'darwin') app.quit(); });
 

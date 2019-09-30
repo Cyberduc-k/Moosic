@@ -5,6 +5,17 @@ const { Menu, MenuItem, getCurrentWindow } = remote;
 
 export default Component({
     template: '#playlists-template',
+    data() {
+        // const instance = this;
+        
+        return {
+            options: {
+                dropzoneSelector: '#playlists ul',
+                draggableSelector: '#playlists .playlist:not(.default)',
+                multipleDropzonesItemsDraggingEnabled: false,
+            }
+        }
+    },
     computed: {
         playlists(): Playlist[]
         {
@@ -46,6 +57,20 @@ export default Component({
                 y: e.clientY,
                 window: getCurrentWindow()
             });
+        },
+        reordered(e: CustomEvent<{ index: number, items: HTMLElement[] }>) {
+            let pl = <Playlist[]>this.$store.state.playlists;
+            let i = 0;
+            
+            for (i; i < pl.length; i++) {
+                if (pl[i].name == e.detail.items[0].innerText) {
+                    break;
+                }
+            }
+            
+            let [elem] = pl.splice(i, 1);
+            
+            pl.splice(e.detail.index + 1, 0, elem);
         }
     }
 });

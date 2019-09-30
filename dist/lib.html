@@ -46,14 +46,16 @@
     </template>
 
     <template id="playlists-template">
-        <div id="playlists">
-            <div
-                :class="{ playlist: true, default: playlist.name === 'default' }"
-                v-for="(playlist, i) in playlists"
-                :key="i"
-                @click="$store.state.current = i"
-                @contextmenu="contextmenu(i, $event)"
-            >{{ playlist.name }}</div>
+        <div id="playlists" v-drag-and-drop:options="options">
+            <ul @reordered="reordered">
+                <div
+                    :class="{ playlist: true, default: playlist.name === 'default' }"
+                    v-for="(playlist, i) in playlists"
+                    :key="i"
+                    @click="$store.state.current = i"
+                    @contextmenu="contextmenu(i, $event)"
+                >{{ playlist.name }}</div>
+            </ul>
         </div>
     </template>
 

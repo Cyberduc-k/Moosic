@@ -18,18 +18,34 @@ electron_1.app.commandLine.appendSwitch('autoplay-policy', 'no-user-gesture-requ
 let win = null;
 let win2 = null;
 let dialog = null;
+const locked = electron_1.app.requestSingleInstanceLock();
+if (!locked) {
+    electron_1.app.quit();
+}
+else {
+    electron_1.app.on('second-instance', (_event, commandLine, _workingDirectory) => {
+        if (win !== null) {
+            if (win.isMinimized())
+                win.restore();
+            openLib(true);
+            win2.webContents.send("openFile", commandLine[commandLine.length - 1]);
+            win.focus();
+        }
+    });
+}
 electron_1.ipcMain.on("getFile", (e) => {
     let data = null;
     if (!electron_is_dev_1.default) {
         data = process.argv[1];
     }
+    else {
+        data = process.argv[2];
+    }
     e.returnValue = data;
 });
 electron_1.ipcMain.on("openFile", (_, file) => {
     openLib(true);
-    win2.webContents.on("dom-ready", () => {
-        win2.webContents.send("openFile", file);
-    });
+    win2.webContents.send("openFile", file);
 });
 electron_1.ipcMain.on('openLib', () => {
     openLib();
@@ -55,13 +71,15 @@ electron_1.ipcMain.on('openDialog', (_, i, ...args) => {
 });
 electron_1.ipcMain.on('dialogResult', (_, res) => win2.webContents.send('dialogResult', res));
 function openLib(hidden = false) {
-    if (win2 !== null)
+    if (win2 !== null) {
         win2.focus();
+        // if (!hidden) win2.show();
+    }
     else {
         win2 = new electron_1.BrowserWindow({
             width: 400,
             height: 600,
-            show: !hidden,
+            // show: !hidden,
             frame: false,
             webPreferences: {
                 nodeIntegration: true
@@ -133,7 +151,10 @@ function openDialog() {
         dialog.on('closed', () => dialog = null);
     }
 }
-electron_1.app.on('ready', openPlayer);
+electron_1.app.on('ready', () => {
+    openPlayer();
+    openLib(true);
+});
 electron_1.app.on('window-all-closed', () => { if (process.platform !== 'darwin')
     electron_1.app.quit(); });
 electron_1.app.on('activate', () => { if (win === null) {

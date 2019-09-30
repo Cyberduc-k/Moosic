@@ -34,10 +34,10 @@ export default Component({
         },
         move(e: MouseEvent)
         {
-            (this.$el as HTMLElement).style.setProperty("--left", `${e.layerX}px`);
+            (this.$el as HTMLElement).style.setProperty("--left", `${e.offsetX}px`);
 
             const el = this.$refs.prog as HTMLElement;
-            const p = (e.layerX / el.clientWidth);
+            const p = (e.offsetX / el.clientWidth);
             const t = Math.round(this.$store.state.track.duration * p);
             const hours = Math.floor(t / 3600), t2 = t % 3600;
             const mins = Math.floor(t2 / 60), secs = t2 % 60;
@@ -56,7 +56,7 @@ export default Component({
         setTime(e: MouseEvent)
         {
             const el = this.$refs.prog as Element;
-            const p = (e.layerX / el.clientWidth);
+            const p = (e.offsetX / el.clientWidth);
             
             this.$store.state.audio.currentTime = this.$store.state.track.duration * p;
             (this.$el as HTMLElement).style.setProperty('--progress', `${p}`);

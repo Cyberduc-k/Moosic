@@ -11,5 +11,12 @@ export default new Vuex.Store({
         current: -1,
 		currentTrack: -1,
         playlists: <Playlist[]>JSON.parse(localStorage.getItem('playlists') || '[{ "name": "default", "tracks": [] }]')
+    },
+    mutations: {
+        sort(state) {
+            let pl = state.playlists[state.current];
+            
+            pl.tracks.sort((a, b) => a.file.localeCompare(b.file));
+        }
     }
 });

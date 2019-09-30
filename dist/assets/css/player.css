@@ -15,7 +15,7 @@
     background: rgba(var(--color-r), var(--color-g), var(--color-b), 0.9);
     transition: all 0.3s ease;
     
-    box-shadow: 0 0 20px rgba(26, 26, 26, 0.2);
+    box-shadow: 0 0 10px rgba(26, 26, 26, 0.2);
 }
 
 #app.playing #player #visual {

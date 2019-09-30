@@ -22,7 +22,7 @@ exports.default = component_1.default({
             electron_1.remote.getCurrentWindow().minimize();
         },
         close() {
-            electron_1.remote.getCurrentWindow().close();
+            electron_1.remote.getCurrentWindow().hide();
         },
         addPlaylist() {
             const self = this;
@@ -48,8 +48,11 @@ exports.default = component_1.default({
             }, files => {
                 if (files !== undefined) {
                     const pl = this.$store.state.playlists[this.$store.state.current].tracks;
+                    let promises = [];
                     for (const file of files) {
-                        loader_1.default(file).then(track => {
+                        let p = loader_1.default(file);
+                        promises.push(p);
+                        p.then(track => {
                             pl.push({
                                 title: track.title,
                                 artist: track.artist,
@@ -59,6 +62,9 @@ exports.default = component_1.default({
                             });
                         });
                     }
+                    Promise.all(promises).then(() => {
+                        this.$store.commit("sort");
+                    });
                 }
             });
         },
@@ -70,9 +76,12 @@ exports.default = component_1.default({
                 if (folders !== undefined) {
                     const pl = this.$store.state.playlists[this.$store.state.current].tracks;
                     const res = [];
+                    let promises = [];
                     exec(folders);
                     for (const file of res) {
-                        loader_1.default(file).then(track => {
+                        let p = loader_1.default(file);
+                        promises.push(p);
+                        p.then(track => {
                             pl.push({
                                 title: track.title,
                                 artist: track.artist,
@@ -82,6 +91,9 @@ exports.default = component_1.default({
                             });
                         });
                     }
+                    Promise.all(promises).then(() => {
+                        this.$store.commit("sort");
+                    });
                     function exec(dirs) {
                         for (const dir of dirs) {
                             if (fs.statSync(dir).isDirectory()) {

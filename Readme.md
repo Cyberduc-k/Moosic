@@ -1,1 +1,1 @@
-# ![logo](dist/logo.png =250x250) Moosic
+# <img src="dist/logo.png" alt="logo" width="250" height="250"> Moosic

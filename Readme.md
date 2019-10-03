@@ -1,1 +1,1 @@
-# ![logo](dist/logo.png) Moosic
+# ![logo](dist/logo.png =250x250) Moosic

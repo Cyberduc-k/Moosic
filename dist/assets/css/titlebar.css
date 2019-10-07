@@ -1,32 +1,20 @@
 #app.playing #titlebar {
     border-bottom-left-radius: 0.6rem;
     border-bottom-right-radius: 0.6rem;
-}
-
-#app:not(.playing) #titlebar:after {
-    content: '';
-    display: block;
-    width: 100%;
-    height: 15px;
-    background: var(--color);
-    position: absolute;
-    left: 0;
-    top: 100%;
+    box-shadow: 0 0 10px rgba(26, 26, 26, 0.3);
 }
 
 #titlebar {
     box-sizing: border-box;
-    height: 30px;
-    width: 100%;
-    background: var(--color);
     position: relative;
     z-index: 1;
+    width: 100%;
+    height: 30px;
+    background: var(--color);
     border-top-left-radius: 0.6rem;
     border-top-right-radius: 0.6rem;
     transition: border-bottom-left-radius 0.3s, border-bottom-right-radius 0.3s;
     -webkit-app-region: drag;
-    
-    box-shadow: 0 0 10px rgba(26, 26, 26, 0.3);
 }
 
 #titlebar .title {
@@ -38,6 +26,8 @@
 
 #titlebar .buttons {
     float: right;
+    position: relative;
+    z-index: 3;
 }
 
 #titlebar .buttons .close,
@@ -82,9 +72,9 @@
     height: 20px;
     margin: 5px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.2);
     position: relative;
     z-index: 3;
+    background: rgba(255, 255, 255, 0.2);
     vertical-align: top;
     
     -webkit-app-region: no-drag;
@@ -123,7 +113,6 @@
 #titlebar .controls .volume .wrapper {
     display: none;
     position: absolute;
-    z-index: 3;
     top: 0;
     left: 0;
     height: 88px;

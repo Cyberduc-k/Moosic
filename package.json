@@ -20,10 +20,10 @@
     "config": {
         "forge": {
             "packagerConfig": {
-                "icon": "F:/App/moosic/dist/logo.ico"
+                "icon": "F:/App/moosic/screenshots/logo.ico"
             },
             "electronPackagerConfig": {
-                "icon": "F:/App/moosic/dist/logo.ico"
+                "icon": "F:/App/moosic/screenshots/logo.ico"
             },
             "makers": [
                 {
